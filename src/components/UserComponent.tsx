@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React from 'react';
 
 interface Order {
   number: number,
@@ -8,7 +8,7 @@ interface Order {
   toxic: boolean
 }
 
-interface UserContainerProps {
+export interface UserContainerProps {
   user: {
     id: number,
     password: string,

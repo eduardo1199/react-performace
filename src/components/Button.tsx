@@ -6,7 +6,7 @@ interface ButtonProps {
 
 function Button({onClickVisible}: ButtonProps) {
   return(
-    <button onClick={onClickVisible}>Desabilitar Visualização</button>
+    <button onClick={onClickVisible}>Visualização</button>
   )
 } 
 

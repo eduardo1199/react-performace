@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, /*lazy,*/ Suspense  } from 'react';
 
 import UserContainer from '../components/UserComponent';
 import QuantityOrder from '../components/QuantityOrder';
@@ -25,9 +25,13 @@ interface User {
   order: Array<Order>
 }
 
+/* const UserContainerComponent = lazy(() => {
+  return import('../components/UserComponent')
+}) */
+
 function Home() {
   const [users, setUsers] = useState<User[]>([]);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [seach, setSeach] = useState('');
 
   useEffect(() => {
@@ -40,6 +44,9 @@ function Home() {
   }, [])
 
  /*  const quantityOrder = useMemo(() => users.reduce((acc, user) => {
+   
+   é melhor executar essas operações quando for obtido a lista de usuários, assim como formação de dados ou operações de cálculos
+  
     acc.quantity += user.order.length;
 
     return acc;
@@ -47,7 +54,9 @@ function Home() {
     quantity: 0
   }), [users]);
  */
-  const quantityOrder = users.reduce((acc, user) => {
+
+
+  const quantityOrder = users.reduce((acc, user) => {  
     acc.quantity += user.order.length;
 
     return acc;
@@ -83,11 +92,24 @@ function Home() {
 
       {visible && (
         <div className="container-info">
-        {users?.map((user) => 
-            <UserContainer key={user.id} user={user} />
-        )}
+          <Suspense fallback={<div>Carregando..</div>}>
+            {users?.map((user) => 
+              <UserContainer key={user.id} user={user} />
+            )}
+          </Suspense>
         </div>
       )}
+      
+      {/* 
+      {visible && (
+        <div className="container-info">
+          <Suspense fallback={<div>Carregando..</div>}>
+            {users?.map((user) => 
+              <UserContainerComponent key={user.id} user={user} />
+            )}
+          </Suspense>
+        </div>
+      )} */}
 
     </div>
   );
