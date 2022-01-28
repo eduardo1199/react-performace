@@ -1,10 +1,11 @@
-import React, { useEffect, useState, /*lazy,*/ Suspense  } from 'react';
+import React, { useEffect, useState, /*lazy Suspense*/  } from 'react';
 
 import UserContainer from '../components/UserComponent';
 import QuantityOrder from '../components/QuantityOrder';
 import Button from '../components/Button';
 
 import './styles.css';
+//import { List, AutoSizer, ListRowRenderer } from 'react-virtualized';
 
 interface Order {
   number: number,
@@ -78,6 +79,15 @@ function Home() {
     setVisible(prev => !prev);
   }
 
+  /* const lisRowRender: ListRowRenderer = ({ index, style ,key }) => {
+    return(
+      <div key={index} style={style}>
+        <UserContainer key={key} user={users[index]} />
+      </div>
+    
+    )
+  } */
+
   return (
     <div className="Home">
       <h1>Lista de usuários</h1>
@@ -92,11 +102,9 @@ function Home() {
 
       {visible && (
         <div className="container-info">
-          <Suspense fallback={<div>Carregando..</div>}>
-            {users?.map((user) => 
-              <UserContainer key={user.id} user={user} />
-            )}
-          </Suspense>
+          {users?.map((user) => 
+            <UserContainer key={user.id} user={user} />
+          )}  
         </div>
       )}
       
@@ -110,6 +118,21 @@ function Home() {
           </Suspense>
         </div>
       )} */}
+
+      {/*  <div style={{width: '100%', height: '100vh'}}>
+        <AutoSizer>
+          {({ width, height }) => ( 
+            <List 
+              height={height} 
+              width={width}
+              rowHeight={100}
+              overscanRowCount={2}
+              rowCount={users.length}
+              rowRenderer={lisRowRender}
+            />
+          )}
+        </AutoSizer>
+      </div> */}
 
     </div>
   );
